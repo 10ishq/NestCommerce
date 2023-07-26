@@ -8,10 +8,10 @@ import { Transport } from '@nestjs/microservices';
 async function bootstrap() {
   const app = await NestFactory.create(AuthModule);
   app.connectMicroservice({
-    transport: Transport.TCP,
+    transport: Transport.RMQ,
     options: {
-      port: 3002,
-      host: '0.0.0.0'
+      urls: ['amqp://rabbitmq:5672'],
+      queue: 'auth',
     },
   });
   app.use(cookieParser());

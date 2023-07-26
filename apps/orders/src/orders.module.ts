@@ -32,10 +32,10 @@ import { AUTH_SERVICE } from '@app/common/constants';
     {
       name: AUTH_SERVICE,
       useFactory: () => ({
-        transport: Transport.TCP,
+        transport: Transport.RMQ,
         options: {
-          host: 'auth',
-          port: 3002,
+          urls: ['amqp://rabbitmq:5672'],
+          queue: 'auth',
         }
       }),
       inject: [ConfigService]
