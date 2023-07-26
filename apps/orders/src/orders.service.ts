@@ -2,12 +2,24 @@ import { Injectable } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { OrdersRepository } from './orders.repository';
+import { UserDto } from '@app/common';
 
 @Injectable()
 export class OrdersService {
   constructor(private readonly ordersRepository: OrdersRepository) {}
 
-  create(createOrderDto: CreateOrderDto) {
+  // create(createOrderDto: CreateOrderDto) {
+    // return this.ordersRepository.create({
+    //   ...createOrderDto,
+    //   timestamp: new Date(),
+    //   userId: '123',
+    // });
+  // }
+
+  async create(
+    createOrderDto: CreateOrderDto,
+    { email, _id: userId }: UserDto,
+  ) {
     return this.ordersRepository.create({
       ...createOrderDto,
       timestamp: new Date(),
